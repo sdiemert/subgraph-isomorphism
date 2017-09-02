@@ -1,0 +1,37 @@
+{
+  "name": "subgraph-isomorphism",
+  "version": "1.0.0",
+  "description": "a package for finding subgraph isomorphisms in a parent graph using Ullman's algorithm",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "istanbul": "^0.4.5",
+    "mathjs": "^3.16.3"
+  },
+  "devDependencies": {
+    "mocha": "^3.5.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sdiemert/subgraph-isomorphism.git"
+  },
+  "keywords": [
+    "graph",
+    "subgraph",
+    "isomorphism",
+    "morphism",
+    "graph",
+    "theory"
+  ],
+  "author": "sdiemert",
+  "license": "SEE LICENSE IN LICENSE.txt",
+  "bugs": {
+    "url": "https://github.com/sdiemert/subgraph-isomorphism/issues"
+  },
+  "homepage": "https://github.com/sdiemert/subgraph-isomorphism#readme"
+}
