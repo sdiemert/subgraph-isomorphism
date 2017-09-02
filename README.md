@@ -1,5 +1,7 @@
 ## Subgraph Isomorphism Package
 
+![](https://travis-ci.org/sdiemert/subgraph-isomorphism.svg)
+
 A small package that finds isomorphic subgraph matches within a larger host/parent graph. More formally, for a parent graph $G$ and desired matching graph $P$, find a subgraph of $G$ that is isomorphic to $P$.
 
 This package works on directed and bidirectional graphs.
