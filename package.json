@@ -8,7 +8,8 @@
   },
   "dependencies": {
     "istanbul": "^0.4.5",
-    "mathjs": "^3.16.3"
+    "mathjs": "^3.16.3",
+    "performance-now": "^2.1.0"
   },
   "devDependencies": {
     "mocha": "^3.5.0"
