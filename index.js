@@ -78,7 +78,18 @@ function isIso(M, G, P) {
 
 }
 
-function recurse(used_columns, cur_row, G, P, M, out, num) {
+/**
+ *
+ * @param used_columns {number[]}
+ * @param cur_row {number}
+ * @param G {number[][]}
+ * @param P {number[][]}
+ * @param M {number[][]}
+ * @param out {number[][][]}
+ * @param num {number}
+ * @param prune {boolean}
+ */
+function recurse(used_columns, cur_row, G, P, M, out, num, prune) {
 
     const cols = num_cols(M);
 
@@ -91,6 +102,12 @@ function recurse(used_columns, cur_row, G, P, M, out, num) {
     } else {
 
         let Mp = array2DCopy(M);
+
+        // prune the proposed morphism to remove
+        // mappings that are obviously not possible.
+        if(prune){
+            pruneOptions(Mp, P, G);
+        }
 
         // for all unused columns c
         for (let c = 0; c < cols; c++) {
@@ -119,6 +136,56 @@ function recurse(used_columns, cur_row, G, P, M, out, num) {
                 // mark c as unused
                 used_columns[c] = 0;
 
+            }
+        }
+    }
+
+}
+
+/**
+ *
+ * @param M {number[][]} the proposed morphism between P and G
+ * @param P {number[][]} the sub graph being matched
+ * @param G {number[][]} the host graph
+ */
+function pruneOptions(M, P, G){
+
+    // M first dim (rows) are vertices of sub graph P
+    // M second dim (cols) are vertices of host graph G
+
+    for(let i = 0; i < M.length; i++){
+        for(let j = 0; j < M.length; j++){
+
+            // i - the vertex in P
+            // j - the vertex in G
+
+            // for all M[i][j] === 1
+            if(M[i][j] === 1){
+
+                // for all neighbours x of vertex i in P
+                for(let x = 0; x < P.length; x++){
+
+                    if(P[i][x] === 1){
+
+                        // x is a vertex in P that is adjacent to i
+
+                        // if there is no neighbour y of vertex j in G such
+                        // that M[x][y] === 1, then set M[i][j] = 0
+
+                        let hasNeighbourY = false;
+                        for(let y = 0; y < G.length; y++){
+                            if(G[j][y] === 1){
+                                hasNeighbourY = true;
+                                break;
+                            }
+                        }
+
+                        if(!hasNeighbourY){
+                            M[i][j] = 0;
+                        }
+
+                    }
+                }
             }
         }
     }
@@ -205,7 +272,7 @@ function getIsomorphicSubgraphs(G, P, maxNum, similarityCriteria) {
 
     let results = [];
 
-    recurse(math.zeros(1, G_size).toArray()[0], 0, G, P, M, results, maxNum);
+    recurse(math.zeros(1, G_size).toArray()[0], 0, G, P, M, results, maxNum, false);
 
     return results;
 }

@@ -93,7 +93,7 @@ function expVaryEverything(){
 
 function expLargeHost(){
 
-    const fout = fs.createWriteStream("experiments/results/exp-out-large-host.csv", "utf-8");
+    const fout = fs.createWriteStream("experiments/results/exp-out-large-host-with-prune.csv", "utf-8");
 
     const REPEATS = 50;
 
